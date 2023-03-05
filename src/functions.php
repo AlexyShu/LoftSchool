@@ -97,3 +97,12 @@ function task5() {
     $string2 = "Две бутылки лимонада." . PHP_EOL;;
     echo str_replace("Две", "Три", $string2);
 }
+
+//task 6
+// Создайте файл test.txt средствами PHP. Поместите в него текст - “Hello again!”
+// Напишите функцию, которая будет принимать имя файла, открывать файл и выводить содержимое на экран.
+
+function task6(string $fileName) {
+    file_get_contents("test.txt", "Hello again!");
+    file_get_contents($fileName);
+}
