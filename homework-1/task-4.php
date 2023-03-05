@@ -12,4 +12,4 @@ switch ($day) {
     default:
         echo "Неизвестный день" . PHP_EOL;
         break;
-}
+};
