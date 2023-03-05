@@ -12,4 +12,6 @@ require('functions.php');
 
 //echo task3(5,7);
 
-echo task4();
+// echo task4();
+
+echo task5();
