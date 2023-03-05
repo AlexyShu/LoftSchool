@@ -10,4 +10,6 @@ require('functions.php');
 // echo task2("*", 1, 2, 3) . PHP_EOL;
 // echo task2("/", 1, 2, 3) . PHP_EOL;
 
-echo task3(5,7);
+//echo task3(5,7);
+
+echo task4();

@@ -80,3 +80,9 @@ function task3(int $number1, int $number2) {
 //task 4
 // Выведите информацию о текущей дате в формате 31.12.2016 23:59
 // Выведите unixtime время соответствующее 24.02.2016 00:00:00.
+
+function task4() {
+    date_default_timezone_set("europe/moscow");
+    echo "Сейчас: " . date("d.m.Y H:i") . PHP_EOL;
+    echo "Unixtime время соответствующее 24.02.2016 00:00:00 = " . strtotime("24.02.2016 00:00:00") . PHP_EOL;;
+}
