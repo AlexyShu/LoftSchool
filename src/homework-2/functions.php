@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // task 1
 // Функция должна принимать массив строк и выводить каждую строку в отдельном параграфе (тег <p>)
@@ -7,12 +8,10 @@
 function task1(array $array, bool $value = false) {
     if(!$value) {
         $strings = implode(", ", $array);
-    return "<p> $strings</p>" . PHP_EOL;
+        return "<p> $strings</p>" . PHP_EOL;
     } 
 
-    $strings = implode(", ", array_map( function(string $string) {
-        return "<p> $string</p>";
-    }, $array));
+    $strings = implode(", ", array_map(fn(string $string) => "<p>$string</p>", $array));
 
     return $strings;
 }
@@ -24,7 +23,7 @@ function task1(array $array, bool $value = false) {
 // Пример вызова: calcEverything(‘+’, 1, 2, 3, 5.2);
 // Результат: 1 + 2 + 3 + 5.2 = 11.2
 
-function task2(string $action, ...$args) {
+function task2(string $action, int|float ...$args) {
     switch($action) {
         case "+":
             return array_sum($args);
@@ -33,8 +32,9 @@ function task2(string $action, ...$args) {
             return array_shift($args) - array_sum($args);
             break;
         case "*":
-            $result = reset($args);
-            for($i = 1; $i < count($args); $i++) {
+            $result = $args[0];
+            $length = count($args);
+            for($i = 1; $i < $length; $i++) {
                 $result *= $args[$i];
             }
             return $result;
@@ -48,7 +48,7 @@ function task2(string $action, ...$args) {
             break;
             
         default:
-            return"Неизвестный симфол" ;
+            return "Неизвестный симфол" ;
             break;
     };
 }
@@ -58,7 +58,7 @@ function task2(string $action, ...$args) {
 // Если в функцию передали 2 целых числа, то функция должна отобразить таблицу умножения размером со значения параметров, переданных в функцию. (Например если передано 8 и 8, то нарисовать от 1х1 до 8х8). Таблица должна быть выполнена с использованием тега <table>
 // В остальных случаях выдавать корректную ошибку. 
 
-function task3(int $number1, int $number2) {
+function task3(int $number1, int $number2): string {
     if(!is_int($number1) && !is_int($number2)) {
         return "Это не целое число!";
     }
@@ -74,7 +74,7 @@ function task3(int $number1, int $number2) {
         $result .= "</tr>" . PHP_EOL;
     }
     $result .= "</table>" . PHP_EOL;
-    echo $result;
+    return $result;
 }
 
 //task 4
@@ -103,6 +103,6 @@ function task5() {
 // Напишите функцию, которая будет принимать имя файла, открывать файл и выводить содержимое на экран.
 
 function task6(string $fileName) {
-    file_get_contents("test.txt", "Hello again!");
+    file_put_contents("test.txt", "Hello again!");
     file_get_contents($fileName);
 }
