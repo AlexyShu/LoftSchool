@@ -1,6 +1,7 @@
 <?php
 
-class TarifBasic extends TarifAbstract {
+class TariffBasic extends TariffAbstract 
+{
     protected $minutPrice = 10;
     protected $kmPrice = 3;
 }

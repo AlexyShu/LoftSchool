@@ -18,9 +18,9 @@ function incOrders(int $userId, \PDO $pdo) {
 
 function showResult(string $address, int $orderId, int $orderCount) {
     echo "<div>" . PHP_EOL;
-    echo "<p>" . "Спасибо, ваш заказ будет доставлен по адресу: " . $address . "</p>" . PHP_EOL;PHP_EOL;
-    echo "<p>" . "Номер вашего заказа: " . $orderId . "</p>" . PHP_EOL;PHP_EOL;
-    echo "<p>" . "Это ваш " .  $orderCount .  "-й заказ!" . "</p>" . PHP_EOL;PHP_EOL;
+    echo "<p>" . "Спасибо, ваш заказ будет доставлен по адресу: " . $address . "</p>" . PHP_EOL;
+    echo "<p>" . "Номер вашего заказа: " . $orderId . "</p>" . PHP_EOL;
+    echo "<p>" . "Это ваш " .  $orderCount .  "-й заказ!" . "</p>" . PHP_EOL;
     echo "</div>" . PHP_EOL;
 }
 function createOrder(int $userId, string $userAddress, \PDO $pdo): array {

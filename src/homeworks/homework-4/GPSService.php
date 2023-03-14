@@ -1,6 +1,7 @@
 <?php
 
-class GPSService implements ServiceInterface {
+class GPSService implements ServiceInterface 
+{
     private $hourPrice;
 
     public function __construct(int $hourPrice)
@@ -8,9 +9,9 @@ class GPSService implements ServiceInterface {
         $this->hourPrice = $hourPrice;
     }
 
-    public function apply(TarifInterface $tarif, &$price)
+    public function apply(TariffInterface $tariff, &$price)
     {
-        $hours = ceil($tarif->getMinutes() / 60);
+        $hours = ceil($tariff->getMinutes() / 60);
         $price += $this->hourPrice * $hours;
     }
 }

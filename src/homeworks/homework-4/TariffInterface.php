@@ -1,8 +1,9 @@
 <?php
 
-interface TarifInterface {
+interface TariffInterface 
+{
     public function countPrice(): int;
     public function addService(ServiceInterface $service);
-    public function getMinuts(): int;
+    public function getMinutes(): int;
     public function getDistance(): int;
 }

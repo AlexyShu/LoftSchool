@@ -1,6 +1,7 @@
 <?php
 
-class DriverService implements ServiceInterface {
+class DriverService implements ServiceInterface 
+{
     private $price;
 
     public function __construct(int $price)
@@ -8,7 +9,7 @@ class DriverService implements ServiceInterface {
         $this->price = $price;
     }
 
-    public function apply(TarifInterface $tarif, &$price)
+    public function apply(TariffInterface $tariff, &$price)
     {
         $price += $this->price;
     }

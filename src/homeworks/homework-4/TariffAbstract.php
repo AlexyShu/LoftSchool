@@ -1,5 +1,6 @@
 <?php
-abstract class TarifAbstract implements TarifInterface {
+abstract class TariffAbstract implements TariffInterface 
+{
     protected $kmPrice;
     protected $minutPrice;
     protected $distance;
@@ -26,7 +27,7 @@ abstract class TarifAbstract implements TarifInterface {
         return $price;
     }
 
-    public function addService(ServiceInterface $service): TarifInterface
+    public function addService(ServiceInterface $service): TariffInterface
     {
         array_push($this->services, $service);
         return $this;

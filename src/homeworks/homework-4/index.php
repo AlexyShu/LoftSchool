@@ -1,10 +1,12 @@
 <?php
-require_once "TarifInterface.php";
+require_once "TariffInterface.php";
 require_once "ServiceInterface.php";
-require_once "TarifAbstract.php";
+require_once "TariffAbstract.php";
 require_once "GPSService.php";
 require_once "DriverService.php";
-require_once "TarifBasic.php";
+require_once "TariffBasic.php";
+require_once "TariffHour.php";
+require_once "TariffForStudents.php";
 
 // Представьте, что вы создаете сайт для компании сдающих автомобили поминутно (каршеринг). 
 // У компании есть ряд тарифов. 
@@ -50,7 +52,16 @@ require_once "TarifBasic.php";
 // = 5км * 10 руб / км + 60 мин * 3 руб / мин + 15 руб / час * 1 час = 50 + 180 + 15 
 // = 245
 
-$tarif = new TarifBasic(5, 60);
-$tarif->addService(new GPSService(15));
-$tarif->addService(new DriverService(100));
-echo $tarif->countPrice();
+$tariffBasic = new TariffBasic(5, 60);
+$tariffBasic->addService(new GPSService(15));
+$tariffBasic->addService(new DriverService(100));
+echo "Базовый тариф: " . $tariffBasic->countPrice();
+echo PHP_EOL;
+
+$tariffHour = new TariffHour(5, 61);
+echo "По часовой тариф: " . $tariffHour->countPrice();
+echo PHP_EOL;
+
+$tariffforStudents = new TariffForStudents(5, 15);
+echo "Тариф студенческий: " . $tariffforStudents->countPrice();
+echo PHP_EOL;
