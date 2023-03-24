@@ -1,0 +1,5 @@
+{
+  "autoload": {
+    "psr-4": {"App\\": "homeworks/homework-5/app/", "Base\\":  "homeworks/homework-5/base/"}
+  }
+}
