@@ -22,7 +22,11 @@ class Aplication
             $this->addRoutes();
             $this->initContorller();
             $this->initAction();
-            $this->controller->{$this->actionName}();
+            $view = new View();
+            $this->controller->setView($view);
+            $content = $this->controller->{$this->actionName}();
+            echo($content);
+
         } catch (RedirectException $e) {
             header('Location: ' . $e->getUrl());
             die;
@@ -34,7 +38,7 @@ class Aplication
     {
         $controllerName = $this->route->getControllerName();
         if(!class_exists($controllerName)) {
-            throw new \Exception('Can not find controller ' . $this->controller );
+            echo('Can not find controller ' . $controllerName);
         }
 
         $this->controller = new $controllerName();
@@ -44,7 +48,7 @@ class Aplication
     {
         $actionName = $this->route->getActionName();
         if(!method_exists($this->controller, $actionName)) {
-            throw new \Exception('Action ' . $actionName . ' nit found in ' . get_class($this->controller));
+            echo('Action ' . $actionName . ' nit found in ' . get_class($this->controller));
         }
 
         $this->actionName = $actionName;

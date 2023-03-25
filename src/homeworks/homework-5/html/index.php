@@ -1,8 +1,10 @@
 <?php
 include '../../../vendor/autoload.php';
+include '../base/config.php';
 
 use App\Model\User;
 use Base\Aplication;
+
 
 $app = new Aplication();
 $app->run();

@@ -13,6 +13,6 @@ class User extends AbstractController
 
     function registerAction()
     {
-        echo("Register action");
+       return $this->view->render('/User/register.phtml', ['userName' => 'Sasha']);
     }
 }
