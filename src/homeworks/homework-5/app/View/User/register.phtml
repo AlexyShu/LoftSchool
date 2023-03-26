@@ -1,1 +1,21 @@
-Hello <?=$userName; ?>
+<h2>Регистрация</h2><br>
+<form action="/user/login" method="post">
+    <label>
+        Имя:
+        <input type="text" name="name"> <br>
+    </label>
+    <label>
+        E-mail:
+        <input type="text" name="email"> <br>
+    </label>
+    <label>
+        Повторите пароль:
+        <input minlength="4" type="text" name="password_2"> <br>
+    </label>
+    <label>
+        Пароль:
+        <input minlength="4" type="text" name="password"> <br>
+    </label>
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<?= $error;?>

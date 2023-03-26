@@ -19,12 +19,14 @@ class Aplication
     public function run()
     {
         try {
+            session_start();
             $this->addRoutes();
-            $this->initContorller();
+            $this->initController();
             $this->initAction();
             $view = new View();
             $this->controller->setView($view);
             $content = $this->controller->{$this->actionName}();
+
             echo($content);
 
         } catch (RedirectException $e) {
@@ -34,7 +36,7 @@ class Aplication
 
     }
 
-    private function initContorller(): void
+    private function initController(): void
     {
         $controllerName = $this->route->getControllerName();
         if(!class_exists($controllerName)) {
@@ -44,19 +46,31 @@ class Aplication
         $this->controller = new $controllerName();
     }
 
+    private function initUser() {
+        $id = $_SESSION['id'] ?? null;
+        if($id) {
+            $userModel = new \App\Model\User();
+            $user = $userModel->getUserById($id);
+            if($user) {
+                $this->controller->setUser($user);
+            }
+        }
+        $this->controller->setUser();
+    }
+
     private function initAction():void
     {
         $actionName = $this->route->getActionName();
         if(!method_exists($this->controller, $actionName)) {
-            echo('Action ' . $actionName . ' nit found in ' . get_class($this->controller));
+            echo('Action ' . $actionName . ' not found in ' . get_class($this->controller));
         }
 
         $this->actionName = $actionName;
     }
 
-    private function addRoutes():void
+    private function addRoutes()
     {
-        $this->route->addRoute('user/go', User::class, 'login');
+        $this->route->addRoute('/blog', \App\Controller\Blog::class, 'blog');
     }
 
 }

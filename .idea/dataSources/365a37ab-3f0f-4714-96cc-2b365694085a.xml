@@ -944,7 +944,7 @@ loftschool|schema||loftschool||UPDATE|G</Grants>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
     <column id="294" parent="292" name="id">
-      <AutoIncrement>12</AutoIncrement>
+      <AutoIncrement>11</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -990,10 +990,12 @@ loftschool|schema||loftschool||UPDATE|G</Grants>
     </column>
     <column id="303" parent="293" name="password">
       <DasType>varchar(250)|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="304" parent="293" name="created_at">
       <DasType>date|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <index id="305" parent="293" name="PRIMARY">
@@ -1001,10 +1003,18 @@ loftschool|schema||loftschool||UPDATE|G</Grants>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="306" parent="293" name="PRIMARY">
+    <index id="306" parent="293" name="email">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="307" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="308" parent="293" name="email">
+      <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

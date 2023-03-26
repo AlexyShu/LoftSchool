@@ -1,11 +1,20 @@
 <?php
 namespace App\Model;
 
+use Base\DB;
+
 class User
 {
-    function createUser(string $name, string $email, string $password,  \PDO $db): void {
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new DB();
+    }
+
+    function createUser(string $name, string $email, string $password): void {
         $query = "insert into users (name, email, password, created_at) values (:name, :email, :password, CURDATE())";
-        $prepared = $db->prepare($query);
+        $prepared = $this->db->getDB()->prepare($query);
         $prepared->execute([
             'name' => $name,
             'email' => $email,
@@ -13,12 +22,28 @@ class User
         ]);
     }
 
-    function getUser(string $email, \PDO $db): array
+    function getPasswordHash(string $password): string
     {
-        $query = "select * from users where email = :email";
-        $prepared = $db->prepare($query);
+        return sha1('bla,bla.bla' . $password);
+    }
+
+    function getUser(string $email, string $password): array
+    {
+        $query = "select * from users where email = :email and password = :password";
+        $prepared = $this->db->getDB()->prepare($query);
         $prepared->execute([
             'email' => $email,
+            'password' => sha1('bla,bla.bla' . $password),
+        ]);
+        return $prepared->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    function getUserById(int $id): array
+    {
+        $query = "select * from users where id = :id";
+        $prepared = $this->db->getDB()->prepare($query);
+        $prepared->execute([
+            'id' => $id,
         ]);
         return $prepared->fetchAll(\PDO::FETCH_ASSOC);
     }

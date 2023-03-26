@@ -3,13 +3,19 @@
 namespace App\Controller;
 
 use Base\AbstractController;
+use App\Model\Blog as BlogModel;
+
 class Blog extends AbstractController
 {
-    function indexAction()
+    protected $blog;
+
+    public function __construct()
     {
-        if(isset($_GET['redirect'])) {
-            $this->redirect('/user/register');
-        }
-        echo("Index action");
+        $this->blog = new BlogModel();
+    }
+
+    public function blogAction():string
+    {
+        return $this->view->render('/Blog/blog.phtml');
     }
 }
