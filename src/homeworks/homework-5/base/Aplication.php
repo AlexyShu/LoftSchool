@@ -71,6 +71,7 @@ class Aplication
     private function addRoutes()
     {
         $this->route->addRoute('/blog', \App\Controller\Blog::class, 'blog');
+        $this->route->addRoute('/success', \App\Controller\Blog::class, 'success');
     }
 
 }

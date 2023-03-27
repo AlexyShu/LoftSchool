@@ -12,8 +12,8 @@ class Blog
         $this->db = new DB();
     }
 
-    function createBlog(string $text): void {
-        $query = "insert into messages (text, user_id, created_at) values (:text, :user_id, CURDATE())";
+    function createBlog(string $text, string $image): void {
+        $query = "insert into messages (text, user_id, created_at, image) values (:text, :user_id, CURDATE())";
         $prepared = $this->db->getDB()->prepare($query);
         $prepared->execute([
             'text' => $text,

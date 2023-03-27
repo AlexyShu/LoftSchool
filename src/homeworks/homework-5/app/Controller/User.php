@@ -30,14 +30,4 @@ class User extends AbstractController
     {
        return $this->view->render('/User/register.phtml', ['error' => '']);
     }
-
-    function blogAction(): void
-    {
-        $email = trim($_POST['email']);
-        $password = $_POST['password'];
-        $userProfile = $this->user->getUser($email, $password);
-        $_SESSION['id'] = $userProfile[0]['id'];
-        $blog = new Blog();
-        $blog->blogAction();
-    }
 }

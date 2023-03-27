@@ -13,7 +13,7 @@ class User
     }
 
     function createUser(string $name, string $email, string $password): void {
-        $query = "insert into users (name, email, password, created_at) values (:name, :email, :password, CURDATE())";
+        $query = "insert into users (name, email, password, created_at, is_admin) values (:name, :email, :password, CURDATE(), false)";
         $prepared = $this->db->getDB()->prepare($query);
         $prepared->execute([
             'name' => $name,
