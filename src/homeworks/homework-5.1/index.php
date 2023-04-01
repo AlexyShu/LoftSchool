@@ -1,7 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
 
-
 // Create the Transport
 $transport = (new Swift_SmtpTransport('smtp.mail.ru', 465, 'ssl'))
     ->setUsername('alexy_frontend@mail.ru')

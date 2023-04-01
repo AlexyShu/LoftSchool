@@ -21,6 +21,13 @@
       <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/src/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/src/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/src/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/src/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/src/vendor/intervention/image" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
