@@ -12,6 +12,15 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/src/vendor/composer" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/src/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/src/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/src/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/src/vendor/swiftmailer/swiftmailer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
