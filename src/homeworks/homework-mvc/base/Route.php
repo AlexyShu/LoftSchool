@@ -6,16 +6,15 @@ class Route
 {
     private $controllerName;
     private $actionName;
-    private $processed;
+    private $processed = false;
     private $routes;
 
-
-    private function process() {
-        if(!$this->processed) {
+    private function process()
+    {
+        if (!$this->processed) {
             $parts = parse_url($_SERVER['REQUEST_URI']);
             $path = $parts['path'];
-
-            if(($route = $this->routes[$path] ?? null) != null) {
+            if (($route = $this->routes[$path] ?? null) !== null) {
                 $this->controllerName = $route[0];
                 $this->actionName = $route[1];
             } else {
@@ -23,11 +22,12 @@ class Route
                 $this->controllerName = '\\App\\Controller\\' . ucfirst(strtolower($parts[1]));
                 $this->actionName = strtolower($parts[2] ?? 'Index');
             }
+
             $this->processed = true;
         }
     }
 
-    function addRoute($path, $controllerName, $actionName)
+    public function addRoute($path, $controllerName, $actionName)
     {
         $this->routes[$path] = [
             $controllerName,
@@ -37,7 +37,7 @@ class Route
 
     public function getControllerName(): string
     {
-        if(!$this->processed) {
+        if (!$this->processed) {
             $this->process();
         }
         return $this->controllerName;
@@ -45,9 +45,59 @@ class Route
 
     public function getActionName(): string
     {
-        if(!$this->processed) {
+        if (!$this->processed) {
             $this->process();
         }
         return $this->actionName . 'Action';
     }
 }
+
+//class Route
+//{
+//    private $controllerName;
+//    private $actionName;
+//    private $processed;
+//    private $routes;
+//
+//
+//    private function process() {
+//        if(!$this->processed) {
+//            $parts = parse_url($_SERVER['REQUEST_URI']);
+//            $path = $parts['path'];
+//
+//            if(($route = $this->routes[$path] ?? null) != null) {
+//                $this->controllerName = $route[0];
+//                $this->actionName = $route[1];
+//            } else {
+//                $parts = explode('/', $path);
+//                $this->controllerName = '\\App\\Controller\\' . ucfirst(strtolower($parts[1]));
+//                $this->actionName = strtolower($parts[2] ?? 'Index');
+//            }
+//            $this->processed = true;
+//        }
+//    }
+//
+//    function addRoute($path, $controllerName, $actionName)
+//    {
+//        $this->routes[$path] = [
+//            $controllerName,
+//            $actionName
+//        ];
+//    }
+//
+//    public function getControllerName(): string
+//    {
+//        if(!$this->processed) {
+//            $this->process();
+//        }
+//        return $this->controllerName;
+//    }
+//
+//    public function getActionName(): string
+//    {
+//        if(!$this->processed) {
+//            $this->process();
+//        }
+//        return $this->actionName . 'Action';
+//    }
+//}

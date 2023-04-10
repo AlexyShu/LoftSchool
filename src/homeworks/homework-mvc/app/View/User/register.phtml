@@ -1,21 +1,43 @@
-<h2>Регистрация</h2><br>
-<form action="/user/login" method="post">
-    <label>
-        Имя:
-        <input type="text" name="name"> <br>
-    </label>
-    <label>
-        E-mail:
-        <input type="text" name="email"> <br>
-    </label>
-    <label>
-        Повторите пароль:
-        <input minlength="4" type="text" name="password_2"> <br>
-    </label>
-    <label>
-        Пароль:
-        <input minlength="4" type="text" name="password"> <br>
-    </label>
-    <button type="submit">Зарегистрироваться</button>
+<!--<h2>Регистрация</h2><br>-->
+<!--<form action="/user/login" method="post">-->
+<!--    <label>-->
+<!--        Имя:-->
+<!--        <input type="text" name="name"> <br>-->
+<!--    </label>-->
+<!--    <label>-->
+<!--        E-mail:-->
+<!--        <input type="text" name="email"> <br>-->
+<!--    </label>-->
+<!--    <label>-->
+<!--        Повторите пароль:-->
+<!--        <input minlength="4" type="text" name="password_2"> <br>-->
+<!--    </label>-->
+<!--    <label>-->
+<!--        Пароль:-->
+<!--        <input minlength="4" type="text" name="password"> <br>-->
+<!--    </label>-->
+<!--    <button type="submit">Зарегистрироваться</button>-->
+<!--</form>-->
+<?php //= $error;?>
+
+Регистрация:
+<form action="/user/register" method="post">
+    Имя: <input type="text" name="name"> <br>
+    Пароль: <input type="password" name="password"> <br>
+    <input type="submit" value="Зарегистрироваться">
 </form>
-<?= $error;?>
+<br>
+<br>
+
+Войти
+<form action="/user/login" method="post">
+    Имя: <input type="text" name="name"> <br>
+    Пароль: <input type="password" name="password"> <br>
+    <input type="submit" value="Войти">
+</form>
+
+<br>
+<br>
+<?php if($this->error): ?>
+    <span style="color: red"><?=$this->error;?></span>
+<?php endif; ?>

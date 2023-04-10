@@ -9,7 +9,7 @@ class Blog
 
     public function __construct()
     {
-        $this->db = new DB();
+        $this->db = \Base\Db::getInstance();
     }
 
     function createBlog(string $text, string $image): void {

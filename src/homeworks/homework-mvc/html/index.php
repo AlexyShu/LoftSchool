@@ -3,13 +3,20 @@ include '../../../vendor/autoload.php';
 include '../base/config.php';
 
 use Base\Aplication;
-use Base\DB;
 
-$db = new DB();
-$db->createUserTable();
-$db->createMessagesTable();
 $app = new Aplication();
 $app->run();
+
+
+$app = new Aplication();
+$app->run();
+
+
+//use Base\DB;
+//
+//$db = new DB();
+//$db->createUserTable();
+//$db->createMessagesTable();
 
 //$pdo = new \PDO('mysql:host=mysql;dbname=loftschool', 'loftschool', 'secret');
 //

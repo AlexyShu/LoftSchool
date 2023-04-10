@@ -1,27 +1,157 @@
 <?php
 namespace Base;
 
-class DB
+class Db
 {
-    public $db;
-    public function __construct()
+    /** @var \PDO */
+    private $pdo;
+    private $log = [];
+    private static $instance;
+
+    private function __construct()
     {
-        $this->db = new \PDO('mysql:host=mysql;dbname=loftschool', 'loftschool', 'secret');
     }
 
-    public function getDB(): \PDO
+    private function __clone()
     {
-        return $this->db;
     }
 
-    public function createUserTable():void
+    public static function getInstance(): self
     {
-        $this->db->exec('create table if not exists `users` (id int not null primary key auto_increment, name varchar(250) not null, email varchar(250) not null unique, password varchar(250) not null, created_at date not null, is_admin boolean not null)');
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
-    public function createMessagesTable():void
+    private function getConnection()
     {
-        $this->db->exec('create table if not exists `messages` (id int not null primary key auto_increment, text varchar(250) not null, user_id int not null, created_at date not null, image varchar(250))');
+        $host = DB_HOST;
+        $dbName = DB_NAME;
+        $dbUser = DB_USER;
+        $dbPassword = DB_PASSWORD;
+
+        if (!$this->pdo) {
+            $this->pdo = new \PDO(
+                "mysql:host=$host;dbname=$dbName",
+                $dbUser,
+                $dbPassword,
+                [
+                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
+                ]
+            );
+        }
+
+        return $this->pdo;
     }
+
+    public function fetchAll(string $query, $_method, array $params = [])
+    {
+        $t = microtime(true);
+        $prepared = $this->getConnection()->prepare($query);
+
+        $ret = $prepared->execute($params);
+
+        if (!$ret) {
+            $errorInfo = $prepared->errorInfo();
+            trigger_error("{$errorInfo[0]}#{$errorInfo[1]}: " . $errorInfo[2]);
+            return [];
+        }
+
+        $data = $prepared->fetchAll(\PDO::FETCH_ASSOC);
+        $affectedRows = $prepared->rowCount();
+        $this->log[] = [$query, microtime(true) - $t, $_method, $affectedRows];
+
+        return $data;
+    }
+
+    public function fetchOne(string $query, $_method, array $params = [])
+    {
+        $t = microtime(true);
+        $prepared = $this->getConnection()->prepare($query);
+
+        $ret = $prepared->execute($params);
+
+        if (!$ret) {
+            $errorInfo = $prepared->errorInfo();
+            trigger_error("{$errorInfo[0]}#{$errorInfo[1]}: " . $errorInfo[2]);
+            return [];
+        }
+
+        $data = $prepared->fetchAll(\PDO::FETCH_ASSOC);
+        $affectedRows = $prepared->rowCount();
+
+
+        $this->log[] = [$query, microtime(true) - $t, $_method, $affectedRows];
+        if (!$data) {
+            return false;
+        }
+        return reset($data);
+    }
+
+    public function exec(string $query, $_method, array $params = []): int
+    {
+        $t = microtime(1);
+        $pdo = $this->getConnection();
+        $prepared = $pdo->prepare($query);
+
+        $ret = $prepared->execute($params);
+
+
+        if (!$ret) {
+            $errorInfo = $prepared->errorInfo();
+            trigger_error("{$errorInfo[0]}#{$errorInfo[1]}: " . $errorInfo[2]);
+            return -1;
+        }
+        $affectedRows = $prepared->rowCount();
+
+        $this->log[] = [$query, microtime(1) - $t, $_method, $affectedRows];
+
+        return $affectedRows;
+    }
+
+    public function lastInsertId()
+    {
+        return $this->getConnection()->lastInsertId();
+    }
+
+    public function getLogHTML()
+    {
+        if (!$this->log) {
+            return '';
+        }
+        $res = '';
+        foreach ($this->log as $elem) {
+            $res = $elem[1] . ': ' . $elem[0] . ' (' . $elem[2] . ') [' . $elem[3] . ']' . "\n";
+        }
+        return '<pre>' . $res .'</pre>';
+    }
+
 
 }
+
+//class DB
+//{
+//    public $db;
+//    public function __construct()
+//    {
+//        $this->db = new \PDO('mysql:host=mysql;dbname=loftschool', 'loftschool', 'secret');
+//    }
+//
+//    public function getDB(): \PDO
+//    {
+//        return $this->db;
+//    }
+//
+//    public function createUserTable():void
+//    {
+//        $this->db->exec('create table if not exists `users` (id int not null primary key auto_increment, name varchar(250) not null, email varchar(250) not null unique, password varchar(250) not null, created_at date not null, is_admin boolean not null)');
+//    }
+//
+//    public function createMessagesTable():void
+//    {
+//        $this->db->exec('create table if not exists `messages` (id int not null primary key auto_increment, text varchar(250) not null, user_id int not null, created_at date not null, image varchar(250))');
+//    }
+//
+//}
