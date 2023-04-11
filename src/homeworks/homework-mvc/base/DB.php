@@ -27,24 +27,26 @@ class Db
 
     private function getConnection()
     {
-        $host = DB_HOST;
-        $dbName = DB_NAME;
-        $dbUser = DB_USER;
-        $dbPassword = DB_PASSWORD;
-
         if (!$this->pdo) {
-            $this->pdo = new \PDO(
-                "mysql:host=$host;dbname=$dbName",
-                $dbUser,
-                $dbPassword,
-                [
-                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
-                ]
-            );
+            $this->pdo = new \PDO('mysql:host=mysql;dbname=loftschool', 'loftschool', 'secret');
         }
-
         return $this->pdo;
     }
+
+    public function createUserTable():void
+    {
+        $this->getConnection()->exec('create table if not exists `users` (id int not null primary key auto_increment, name varchar(250) not null, password varchar(250) not null, created_at date, gender int not null)');
+    }
+
+    public function createMessagesTable():void
+    {
+        $this->getConnection()->exec('create table if not exists `messages` (id int not null primary key auto_increment, text varchar(250) not null, user_id int not null, created_at date, image varchar(250))');
+    }
+
+    //    public function createMessagesTable():void
+    //    {
+    //        this->getConnection()->exec('create table if not exists `messages` (id int not null primary key auto_increment, text varchar(250) not null, user_id int not null, created_at date not null, image varchar(250))');
+    //    }
 
     public function fetchAll(string $query, $_method, array $params = [])
     {
@@ -95,6 +97,7 @@ class Db
         $t = microtime(1);
         $pdo = $this->getConnection();
         $prepared = $pdo->prepare($query);
+        var_dump($params);
 
         $ret = $prepared->execute($params);
 
@@ -128,30 +131,4 @@ class Db
         return '<pre>' . $res .'</pre>';
     }
 
-
 }
-
-//class DB
-//{
-//    public $db;
-//    public function __construct()
-//    {
-//        $this->db = new \PDO('mysql:host=mysql;dbname=loftschool', 'loftschool', 'secret');
-//    }
-//
-//    public function getDB(): \PDO
-//    {
-//        return $this->db;
-//    }
-//
-//    public function createUserTable():void
-//    {
-//        $this->db->exec('create table if not exists `users` (id int not null primary key auto_increment, name varchar(250) not null, email varchar(250) not null unique, password varchar(250) not null, created_at date not null, is_admin boolean not null)');
-//    }
-//
-//    public function createMessagesTable():void
-//    {
-//        $this->db->exec('create table if not exists `messages` (id int not null primary key auto_increment, text varchar(250) not null, user_id int not null, created_at date not null, image varchar(250))');
-//    }
-//
-//}
