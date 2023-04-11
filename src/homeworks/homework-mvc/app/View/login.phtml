@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <style>
+            .block { display: inline-block; vertical-align: top; text-align: left; }
+            .block input { width: 150px; }
+            .field { width: 150px; display: inline-block; margin-bottom: 5px }
+        </style>
+    </head>
+    <body>
+        <h3><?=$this->title;?></h3>
+        <?php
+        /** @var \App\Model\User $user */
+        $user = $this->user;
+        ?>
+
+        <? if(!$user): ?>
+            <div style="display: flex; flex-direction: column; width: 330px">
+                <div class="block" style="background: skyblue; padding: 0 10px; margin-bottom: 20px;">
+                    <h3>Зарегистрироваться</h3>
+                    <form action="/login/register" method="post">
+                        <div class="field">Login:</div> <input type="text" value="" name="name"><br>
+                        <div class="field">Email:</div> <input type="text" value="" name="email"><br>
+                        <div class="field">Password:</div> <input type="text" value="" name="password"><br>
+                        <div class="field">Confirm Password:</div> <input type="text" value="" name="password_2"><br>
+                        <button type="submit">Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="block" style="background: darkseagreen; padding: 0 10px">
+                    <h3>Войти</h3>
+                    <form action="/login/auth" method="post">
+                        <div class="field">Email:</div> <input type="text" value="" name="email"><br>
+                        <div class="field">Password:</div> <input type="text" value="" name="password"><br>
+                        <button type="submit">Войти</button>
+                    </form>
+                </div>
+            </div>
+        <? else: ?>
+                Вы вошли как <?=$user->getName();?>
+         <? endif; ?>
+    </body>
+</html>

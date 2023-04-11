@@ -1,5 +1,4 @@
 <?php
-
 namespace Base;
 
 class RedirectException extends \Exception
@@ -11,8 +10,13 @@ class RedirectException extends \Exception
         $this->url = $url;
     }
 
+    /**
+     * @return string
+     */
     public function getUrl(): string
     {
         return $this->url;
     }
+
+
 }

@@ -4,26 +4,78 @@ namespace Base;
 
 use App\Model\User;
 
-abstract class AbstractController
+class AbstractController
 {
     /** @var View */
     protected $view;
-    /** @var User */
-    protected $user;
+    /** @var Session */
+    protected $session;
 
-    protected function redirect(string $url)
-    {
-        throw new RedirectException($url);
-    }
-
-    public function setView(View $view): void
+    public function setView(View $view)
     {
         $this->view = $view;
     }
 
-    public function setUser(User $user): void
+    public function getUser(): ?User
     {
-        $this->user = $user;
+        $userId = $this->session->getUserId();
+        if (!$userId) {
+            return null;
+        }
+
+        $user = User::getById($userId);
+        if (!$user) {
+            return null;
+        }
+
+        return $user;
     }
 
+    public function getUserId()
+    {
+        if ($user = $this->getUser()) {
+            return $user->getId();
+        }
+
+        return false;
+    }
+
+    public function setSession(Session $session)
+    {
+        $this->session = $session;
+    }
+
+    public function redirect(string $url)
+    {
+        throw new RedirectException($url);
+    }
+
+    public function preDispatch()
+    {
+
+    }
 }
+
+//abstract class AbstractController
+//{
+//    /** @var View */
+//    protected $view;
+//    /** @var user */
+//    protected $user;
+//
+//    protected function redirect(string $url)
+//    {
+//        throw new RedirectException($url);
+//    }
+//
+//    public function setView(View $view): void
+//    {
+//        $this->view = $view;
+//    }
+//
+//    public function setUser(user $user): void
+//    {
+//        $this->user = $user;
+//    }
+//
+//}
