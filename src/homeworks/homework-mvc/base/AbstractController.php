@@ -55,27 +55,3 @@ class AbstractController
 
     }
 }
-
-//abstract class AbstractController
-//{
-//    /** @var View */
-//    protected $view;
-//    /** @var user */
-//    protected $user;
-//
-//    protected function redirect(string $url)
-//    {
-//        throw new RedirectException($url);
-//    }
-//
-//    public function setView(View $view): void
-//    {
-//        $this->view = $view;
-//    }
-//
-//    public function setUser(user $user): void
-//    {
-//        $this->user = $user;
-//    }
-//
-//}

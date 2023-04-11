@@ -11,7 +11,3 @@ $route->add('/', \App\Controller\Login::class);
 $app = new \Base\Application($route);
 $app->run();
 
-//use Base\Application;
-//
-//$app = new Application();
-//$app->run();
